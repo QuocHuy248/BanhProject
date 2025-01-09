@@ -218,10 +218,7 @@ input[type="file"] {
                     <a href="loaiBanhAdminController">Quản Lý Loại Bánh</a>
                 </div>
                 <div class="menu-item">
-                    <a href="QuanLyHoaDonController">Quản Lý Hóa Đơn</a>
-                </div>
-                <div class="menu-item">
-                    <a href="ThongKeController">Thống Kê</a>
+                    <a href="hoaDonAdminController">Quản Lý Hóa Đơn</a>
                 </div>
                 <div class="menu-item">
                     <a href="adminDangXuatController">Đăng Xuất</a>

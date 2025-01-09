@@ -32,7 +32,6 @@ public class LoaiBanhAdminController extends HttpServlet {
 			HttpSession session = req.getSession();
 			String dnadmin = (String) session.getAttribute("dnadmin");
 
-			// Nếu chưa đăng nhập hoặc không phải admin thì chuyển về trang đăng nhập
 			if (dnadmin == null || !dnadmin.equals("admin")) {
 				resp.sendRedirect("adminDangNhapController");
 				return;

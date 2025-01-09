@@ -27,6 +27,7 @@ public class ChiTietHoaDonBo {
 		cthd.setSoluongmua(giohang.getSoluong());
 		cthd.setTenBanh(giohang.getTenbanh());
 		cthd.setAnh(giohang.getAnh());
+		cthd.setGia(giohang.getGia());
 		cthddao.taoChiTietHoaDon(cthd);
 	}
 }

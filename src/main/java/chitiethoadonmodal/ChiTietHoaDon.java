@@ -5,6 +5,7 @@ public class ChiTietHoaDon {
 	private Long soluongmua;
 	private Long mahoadon;
 	private String anh;
+	private Long gia;
 
 	public String getTenBanh() {
 		return tenbanh;
@@ -46,12 +47,21 @@ public class ChiTietHoaDon {
 		this.mahoadon = mahoadon;
 	}
 
-	public ChiTietHoaDon(String tenbanh, Long soluongmua, Long mahoadon,String anh) {
+	public ChiTietHoaDon(String tenbanh, Long soluongmua, Long mahoadon, String anh, Long gia) {
 		super();
 		this.tenbanh = tenbanh;
 		this.soluongmua = soluongmua;
 		this.mahoadon = mahoadon;
-		this.anh= anh;
+		this.anh = anh;
+		this.gia = gia;
+	}
+
+	public Long getGia() {
+		return gia;
+	}
+
+	public void setGia(Long gia) {
+		this.gia = gia;
 	}
 
 	public ChiTietHoaDon() {
