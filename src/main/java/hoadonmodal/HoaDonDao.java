@@ -10,24 +10,24 @@ import ketnoimodal.KetNoi;
 
 public class HoaDonDao {
 	public void taoHoaDon(HoaDon hoadon) throws Exception {
-		KetNoi kn = new KetNoi();
-		kn.ketnoi();
-
-		try {
-			String sql = "INSERT INTO HoaDon (mahoadon, makhachhang, ngaymua, damua) VALUES (?, ?, ?, ?)";
-			PreparedStatement cmd = kn.cn.prepareStatement(sql);
-			cmd.setLong(1, hoadon.getMahoadon());
-			cmd.setLong(2, hoadon.getMakhachhang());
-			cmd.setDate(3, (Date) hoadon.getNgaymua());
-			cmd.setBoolean(4, hoadon.isDamua());
-			cmd.executeUpdate();
-			cmd.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			kn.cn.close();
-		}
+	    KetNoi kn = new KetNoi();
+	    kn.ketnoi();
+	    try {
+	        String sql = "INSERT INTO HoaDon (mahoadon, makhachhang, ngaymua, damua) " +
+	                    "VALUES (?, ?, GETDATE(), ?)";  
+	        PreparedStatement cmd = kn.cn.prepareStatement(sql);
+	        cmd.setLong(1, hoadon.getMahoadon());
+	        cmd.setLong(2, hoadon.getMakhachhang());
+	        cmd.setBoolean(3, hoadon.isDamua());  
+	        
+	        cmd.executeUpdate();
+	        cmd.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    } finally {
+	        kn.cn.close();
+	    }
 	}
 
 	public HoaDon layHoaDon(long mahoadon) throws Exception {

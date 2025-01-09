@@ -13,15 +13,14 @@ public class GioHangDao {
 		kn.ketnoi();
 
 		try {
-			String sql = "INSERT INTO GioHang (makhachhang, mabanh, tenbanh, gia, soluong) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO GioHang (makhachhang, mabanh, tenbanh, gia, soluong,anh) VALUES (?, ?, ?, ?, ?,?)";
 			PreparedStatement cmd = kn.cn.prepareStatement(sql);
-
 			cmd.setLong(1, giohang.getMakhachhang());
 			cmd.setLong(2, giohang.getMabanh());
 			cmd.setString(3, giohang.getTenbanh());
 			cmd.setLong(4, giohang.getGia());
 			cmd.setLong(5, giohang.getSoluong());
-
+			cmd.setString(6, giohang.getAnh());
 			int ketQua = cmd.executeUpdate();
 
 			cmd.close();
@@ -89,13 +88,14 @@ public class GioHangDao {
 		kn.ketnoi();
 
 		try {
-			String sql = "UPDATE GioHang SET tenbanh=?, gia=?, soluong=? WHERE makhachhang=? AND mabanh=?";
+			String sql = "UPDATE GioHang SET tenbanh=?, gia=?, soluong=?, anh=? WHERE makhachhang=? AND mabanh=?";
 			PreparedStatement cmd = kn.cn.prepareStatement(sql);
 			cmd.setString(1, giohang.getTenbanh());
 			cmd.setLong(2, giohang.getGia());
 			cmd.setLong(3, giohang.getSoluong());
 			cmd.setLong(4, giohang.getMakhachhang());
-			cmd.setLong(5, giohang.getMabanh());
+			cmd.setString(5, giohang.getAnh());
+			cmd.setLong(6, giohang.getMabanh());
 			cmd.executeUpdate();
 			cmd.close();
 		} catch (Exception e) {
@@ -143,6 +143,7 @@ public class GioHangDao {
 		           gh.setTenbanh(rs.getString("tenbanh")); 
 		           gh.setGia(rs.getLong("gia"));
 		           gh.setSoluong(rs.getLong("soluong"));
+		           gh.setAnh(rs.getString("anh"));
 		       }
 
 		       rs.close();

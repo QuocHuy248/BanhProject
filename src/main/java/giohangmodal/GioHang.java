@@ -6,14 +6,24 @@ public class GioHang {
 	private String tenbanh;
 	private Long gia;
 	private Long soluong;
+	private String anh;
 
-	public GioHang(Long makhachhang, Long mabanh, String tenbanh, Long gia, Long soluong) {
+	public GioHang(Long makhachhang, Long mabanh, String tenbanh, Long gia, Long soluong, String anh) {
 		super();
 		this.makhachhang = makhachhang;
 		this.mabanh = mabanh;
 		this.tenbanh = tenbanh;
 		this.gia = gia;
 		this.soluong = soluong;
+		this.anh = anh;
+	}
+
+	public String getAnh() {
+		return anh;
+	}
+
+	public void setAnh(String anh) {
+		this.anh = anh;
 	}
 
 	public GioHang() {

@@ -29,28 +29,31 @@ public class XoaGioHangController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			BanhBo banhBo = new BanhBo();
 			HttpSession session = req.getSession();
-			if (session.getAttribute("dn") == null)// Chua dang nhap
+			if (session.getAttribute("dn") == null) {
 				resp.sendRedirect("dangnhapController");
-			else {
-				KhachHang khachhang = (KhachHang) session.getAttribute("dn");
-				Long mabanh = (Long) req.getAttribute("mb");
-				Banh banh = banhBo.layBanh(mabanh);
-				if (banh == null) {
-					req.getSession().setAttribute("error", "Thêm sản phẩm vào giỏ hàng không thành công");
-					return;
-				}
-				GioHangBo gioHangBo = new GioHangBo();
-				gioHangBo.themBanhVaoGioHang(khachhang, banh);
-				req.getSession().setAttribute("success", "Thêm sản phẩm vào giỏ hàng không thành công");
+				return;
 			}
-			RequestDispatcher rd = req.getRequestDispatcher("Trangchu.jsp");
-			rd.forward(req, resp);
+
+			Long mabanh = Long.parseLong(req.getParameter("mb"));
+			BanhBo banhBo = new BanhBo();
+			Banh banh = banhBo.layBanh(mabanh);
+
+			if (banh == null) {
+				session.setAttribute("error", "Không tìm thấy sản phẩm");
+				resp.sendRedirect("gioHangController");
+				return;
+			}
+			KhachHang khachhang = (KhachHang) session.getAttribute("dn");
+			GioHangBo gioHangBo = new GioHangBo();
+			gioHangBo.xoaGioHangTheoMaBanh(khachhang.getMakhachhang(), mabanh);
+			session.setAttribute("success", "Xóa sản phẩm thành công");
+			resp.sendRedirect("gioHangController");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			req.getSession().setAttribute("error", "Đã xảy ra lỗi");
-			resp.sendRedirect("BanhUserController");
+			resp.sendRedirect("gioHangController");
 		}
 	}
 

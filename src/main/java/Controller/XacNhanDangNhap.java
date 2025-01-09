@@ -13,14 +13,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/dangnhapController")
-public class DangNhapController extends HttpServlet {
+@WebServlet("/xacNhanDangNhapController")
+public class XacNhanDangNhap extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DangNhapController() {
+	public XacNhanDangNhap() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,19 +33,28 @@ public class DangNhapController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			HttpSession session = request.getSession();
-			if (session.getAttribute("dn") != null) {
-				session.setAttribute("error", "Đăng nhập thành công");
-				response.sendRedirect("banhUserController");
-				return;
+			   HttpSession session = request.getSession();
+			   String un = request.getParameter("txtun");
+			   String pass = request.getParameter("txtpass");
+			   
+			   KhachHangBo khbo = new KhachHangBo();
+				KhachHang kh = khbo.kiemTraDangNhap(un, pass);
+
+				if (kh != null) {
+			       session.setAttribute("dn", kh);
+			       response.sendRedirect("banhUserController");
+			       return;
+			   }
+
+			   session.setAttribute("error", "Vui lòng kiểm tra lại tên đăng nhập và mật khẩu");
+			   response.sendRedirect("dangnhapController");
+			   
+			} catch (Exception e) {
+			   HttpSession session = request.getSession();
+			   e.printStackTrace();
+			   session.setAttribute("error", "Đã xảy ra lỗi");
+			   response.sendRedirect("dangnhapController");
 			}
-			request.getRequestDispatcher("TrangDangNhap.jsp").forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-			HttpSession session = request.getSession();
-			session.setAttribute("error", "Đã xảy ra lỗi");
-			response.sendRedirect("banhUserController");
-		}
 	}
 
 	/**

@@ -43,9 +43,12 @@ public class TaoHoaDonController extends HttpServlet {
 					resp.sendRedirect("gioHangController");
 					return;
 				}
-				hdbo.taoHoaDonTheoMaKhachHang(khachhang);
-				req.getSession().setAttribute("success", "Tạo hóa đơn thành công");
-				resp.sendRedirect("hoaDonUserController");
+				if (hdbo.taoHoaDonTheoMaKhachHang(khachhang)==true) {
+					req.getSession().setAttribute("success", "Tạo hóa đơn thành công, hãy kiểm tra hóa hơn");
+				} else {
+					req.getSession().setAttribute("error", "Có sản phẩm đã hết hàng");
+				}
+				resp.sendRedirect("gioHangController");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

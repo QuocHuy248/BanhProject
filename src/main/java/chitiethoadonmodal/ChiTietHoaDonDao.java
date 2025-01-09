@@ -14,13 +14,13 @@ public class ChiTietHoaDonDao {
 		kn.ketnoi();
 
 		try {
-			String sql = "INSERT INTO ChiTietHoaDon (tenbanh, soluongmua, mahoadon) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO ChiTietHoaDon (tenbanh, soluongmua, mahoadon, anh) VALUES (?, ?, ?, ?)";
 			PreparedStatement cmd = kn.cn.prepareStatement(sql);
 
 			cmd.setString(1, chiTietHoaDon.getTenBanh());
 			cmd.setLong(2, chiTietHoaDon.getSoluongmua());
 			cmd.setLong(3, chiTietHoaDon.getMahoadon());
-
+			cmd.setString(4, chiTietHoaDon.getAnh());
 			cmd.executeUpdate();
 			cmd.close();
 		} catch (Exception e) {
@@ -47,6 +47,7 @@ public class ChiTietHoaDonDao {
 				cthd.setTenBanh(rs.getString("tenbanh"));
 				cthd.setSoluongmua(rs.getLong("soluongmua"));
 				cthd.setMahoadon(rs.getLong("mahoadon"));
+				cthd.setAnh(rs.getString("anh"));
 				dsCTHD.add(cthd);
 			}
 

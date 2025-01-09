@@ -4,6 +4,7 @@ public class ChiTietHoaDon {
 	private String tenbanh;
 	private Long soluongmua;
 	private Long mahoadon;
+	private String anh;
 
 	public String getTenBanh() {
 		return tenbanh;
@@ -15,6 +16,22 @@ public class ChiTietHoaDon {
 
 	public Long getSoluongmua() {
 		return soluongmua;
+	}
+
+	public String getTenbanh() {
+		return tenbanh;
+	}
+
+	public void setTenbanh(String tenbanh) {
+		this.tenbanh = tenbanh;
+	}
+
+	public String getAnh() {
+		return anh;
+	}
+
+	public void setAnh(String anh) {
+		this.anh = anh;
 	}
 
 	public void setSoluongmua(Long soluongmua) {
@@ -29,11 +46,12 @@ public class ChiTietHoaDon {
 		this.mahoadon = mahoadon;
 	}
 
-	public ChiTietHoaDon(String tenbanh, Long soluongmua, Long mahoadon) {
+	public ChiTietHoaDon(String tenbanh, Long soluongmua, Long mahoadon,String anh) {
 		super();
 		this.tenbanh = tenbanh;
 		this.soluongmua = soluongmua;
 		this.mahoadon = mahoadon;
+		this.anh= anh;
 	}
 
 	public ChiTietHoaDon() {

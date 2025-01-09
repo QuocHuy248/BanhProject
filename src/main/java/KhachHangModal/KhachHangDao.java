@@ -32,6 +32,38 @@ public class KhachHangDao {
 		}
 	}
 
+	public KhachHang kiemTraDangNhap(String tendn, String pass) throws Exception {
+		   KetNoi kn = new KetNoi();
+		   kn.ketnoi();
+		   KhachHang kh = null;
+
+		   try {
+		       String sql = "SELECT * FROM KhachHang WHERE tendn=? AND pass=?";
+		       PreparedStatement cmd = kn.cn.prepareStatement(sql);
+		       cmd.setString(1, tendn);
+		       cmd.setString(2, pass);
+		       ResultSet rs = cmd.executeQuery();
+
+		       if(rs.next()) {
+		           kh = new KhachHang();
+		           kh.setMakhachhang(rs.getLong("makhachhang"));
+		           kh.setHoten(rs.getString("hoten"));
+		           kh.setDiachi(rs.getString("diachi"));
+		           kh.setTendn(rs.getString("tendn"));
+		           kh.setPass(rs.getString("pass"));
+		       }
+
+		       rs.close();
+		       cmd.close();
+		   } catch(Exception e) {
+		       e.printStackTrace();
+		       throw e;
+		   } finally {
+		       kn.cn.close();
+		   }
+		   return kh;
+		}
+
 	public long timMaKhachHangLonNhat() throws Exception {
 		KetNoi kn = new KetNoi();
 		kn.ketnoi();

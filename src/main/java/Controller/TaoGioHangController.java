@@ -36,15 +36,14 @@ public class TaoGioHangController extends HttpServlet {
 				resp.sendRedirect("banhUserController");
 			} else {
 				KhachHang khachhang = (KhachHang) session.getAttribute("dn");
-				Long mabanh = (Long) req.getAttribute("mabanh");
+				Long mabanh = Long.parseLong(req.getParameter("mb"));
 				Banh banh = banhBo.layBanh(mabanh);
 				if (banh == null) {
 					req.getSession().setAttribute("error", "Thêm sản phẩm vào giỏ hàng không thành công");
 					resp.sendRedirect("banhUserController");
 				}
 				GioHangBo gioHangBo = new GioHangBo();
-				gioHangBo.themBanhVaoGioHang(khachhang, banh);
-				req.getSession().setAttribute("success", "Thêm sản phẩm vào giỏ hàng  thành công");
+				req.getSession().setAttribute("success", gioHangBo.themBanhVaoGioHang(khachhang, banh));
 				resp.sendRedirect("banhUserController");
 			}
 		} catch (Exception e) {

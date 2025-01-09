@@ -141,6 +141,34 @@ body {
    right: 20px;
    z-index: 1000;
 }
+.form-group {
+   margin-bottom: 20px;
+}
+
+.image-upload {
+   border: 2px dashed #ddd;
+   padding: 20px;
+   border-radius: 8px;
+   text-align: center;
+}
+
+.current-image {
+   max-width: 300px;
+   max-height: 300px;
+   object-fit: contain;
+   margin-bottom: 15px;
+   border-radius: 4px;
+   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+input[type="file"] {
+   display: block;
+   width: 100%;
+   padding: 8px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+   margin-top: 10px;
+}
 </style>
 </head>
 <body>

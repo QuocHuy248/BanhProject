@@ -1,9 +1,11 @@
 package hoadonmodal;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import KhachHangModal.KhachHang;
+import banhmodal.Banh;
+import banhmodal.BanhBo;
 import chitiethoadonmodal.ChiTietHoaDonBo;
 import giohangmodal.GioHang;
 import giohangmodal.GioHangBo;
@@ -35,20 +37,30 @@ public class HoaDonBo {
 		return hoaDonDao.layHoaDon(mahoadon);
 	}
 
-	public void taoHoaDonTheoMaKhachHang(KhachHang khachhang) throws Exception {
+	public boolean taoHoaDonTheoMaKhachHang(KhachHang khachhang) throws Exception {
 		GioHangBo giohangbo = new GioHangBo();
+		BanhBo banhbo = new BanhBo();
 		ArrayList<GioHang> giohangList = giohangbo.layGioHang(khachhang.getMakhachhang());
 		HoaDonDao hoaDonDao = new HoaDonDao();
 		HoaDon hoadon = new HoaDon();
 		hoadon.setMahoadon(hoaDonDao.timMaHoaDonLonNhat() + 1);
 		hoadon.setDamua(false);
 		hoadon.setMakhachhang(khachhang.getMakhachhang());
-		Date date = new Date();
-		hoadon.setNgaymua(date);
 		hoaDonDao.taoHoaDon(hoadon);
 		ChiTietHoaDonBo cthdbo = new ChiTietHoaDonBo();
 		for (GioHang gh : giohangList) {
+			Banh banh = banhbo.layBanh(gh.getMabanh());
+			if (banh.getSoluong() < gh.getSoluong()) {
+				return false;
+			}
+		}
+		for (GioHang gh : giohangList) {
+			Banh banh = banhbo.layBanh(gh.getMabanh());
+			banh.setSoluong(banh.getSoluong() - gh.getSoluong());
+			banhbo.editBanh(banh);
 			cthdbo.taoChiTietHoaDonTheoGioHang(gh, hoadon.getMahoadon());
 		}
+		giohangbo.xoaGioHang(khachhang.getMakhachhang());
+		return true;
 	}
 }
